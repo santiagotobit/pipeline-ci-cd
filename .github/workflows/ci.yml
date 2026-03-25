@@ -26,7 +26,7 @@ jobs:
 
       # Paso 3: Instalar las dependencias (Punto 2 de tus instrucciones)
       - name: Instalar dependencias
-        run: npm install
+        run: npm install --include=dev 
 
       # Paso 4: Ejecutar las pruebas (Punto 3 de tus instrucciones)
       - name: Ejecutar pruebas unitarias
