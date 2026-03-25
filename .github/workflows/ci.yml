@@ -22,11 +22,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # cache: 'npm'
 
       # Paso 3: Instalar las dependencias (Punto 2 de tus instrucciones)
       - name: Instalar dependencias
-        run: npm install --include=dev 
+        run: npm install  # --include=dev 
 
       # Paso 4: Ejecutar las pruebas (Punto 3 de tus instrucciones)
       - name: Ejecutar pruebas unitarias
