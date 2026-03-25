@@ -1,0 +1,33 @@
+name: Node.js CI
+
+# 1. Definimos cuándo se ejecuta (Push y PR a la rama main)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    # Usamos la última versión de Ubuntu para correr los comandos
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Descargar el código del repositorio a la máquina virtual
+      - name: Checkout de código
+        uses: actions/checkout@v4
+
+      # Paso 2: Instalar Node.js en la máquina virtual
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # Paso 3: Instalar las dependencias (Punto 2 de tus instrucciones)
+      - name: Instalar dependencias
+        run: npm install
+
+      # Paso 4: Ejecutar las pruebas (Punto 3 de tus instrucciones)
+      - name: Ejecutar pruebas unitarias
+        run: npm test
