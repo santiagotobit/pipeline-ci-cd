@@ -3,6 +3,7 @@ const router = express.Router();
 const pingController = require('../controllers/pingController');
 
 router.get('/ping', pingController.getPing);
+router.get('/health', pingController.getHealth);
 router.get('/db-test', pingController.getDbCheck);
 
 // app.get('/', (req, res) => {
