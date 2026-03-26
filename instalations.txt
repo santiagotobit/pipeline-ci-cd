@@ -7,3 +7,5 @@ dotenv: Para manejar variables de entorno (como la URL de la base de datos).
 nodemon: Para que el servidor se reinicie solo cada vez que guardes un cambio.
 
 npm install -D jest supertest
+
+npm install pg

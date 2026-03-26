@@ -13,7 +13,7 @@ describe('Pruebas para el endpoint de Ping', () => {
     it('Debe retornar un JSON con el mensaje "pong"', async () => {
         const response = await request(app).get('/api/ping');
         expect(response.body).toBeDefined();
-        expect(response.body.message).toBe('pong');
+        expect(response.body.message).toBe('pong'); 
     });
 
 });
