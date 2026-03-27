@@ -1,12 +1,16 @@
 name: Deploy to Railway
 
+# Se ejecuta al hacer push a main (Punto 7.1)
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout de código
         uses: actions/checkout@v4
@@ -14,27 +18,17 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: "npm"
+          node-version: 22
 
+      # Construir la app (Punto 7.2)
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Ejecutar pruebas unitarias
-        run: npm test
+      # Enviar el despliegue (Punto 7.3 y 7.4)
+      - name: Instalar Railway CLI
+        run: npm install -g @railway/cli
 
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    container: ghcr.io/railwayapp/cli:latest
-    env:
-      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      # Define esto como Repository Variable (Settings -> Secrets and variables -> Actions -> Variables)
-      # Ej: "api" o el nombre exacto de tu servicio en Railway
-      RAILWAY_SERVICE: ${{ vars.RAILWAY_SERVICE }}
-    steps:
-      - name: Checkout de código
-        uses: actions/checkout@v4
-
-      - name: Deploy a Railway
-        run: railway up --service="${RAILWAY_SERVICE}"
+      - name: Desplegar en Railway
+        run: railway up --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}

@@ -11,6 +11,8 @@ jobs:
   build-and-test:
     # Usamos la última versión de Ubuntu para correr los comandos
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       # Paso 1: Descargar el código del repositorio a la máquina virtual
@@ -21,7 +23,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       # Paso 3: Instalar las dependencias (Punto 2 de tus instrucciones)
